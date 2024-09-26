@@ -15,7 +15,7 @@
                     <td><?= $post->title ?></td>
                     <td>
                         <div class="btn-group" role="group">
-                            <a class="btn btn-info">View</a>
+                            <a class="btn btn-info" href="/admin/posts/view/<?= $post->id ?>">View</a>
                             <a class="btn btn-warning">Edit</a>
                             <a class="btn btn-danger">Delete</a>
                         </div>

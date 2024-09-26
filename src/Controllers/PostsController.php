@@ -21,4 +21,13 @@ class PostsController
         $post->save();
         redirect('/admin/posts');
     }
+    public function view($id)
+    {
+        $post = Post::find($id);
+        if ($post) {
+            view('posts/view', compact('post'));
+        } else {
+            echo "Post not found!";
+        }
+    }
 }

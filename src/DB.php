@@ -39,4 +39,11 @@ class DB
         // use exec() because no results are returned
         $this->conn->exec($sql);
     }
+    public function findById($table, $id, $class) {
+        $stmt = $this->conn->prepare("SELECT * FROM $table WHERE id = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, $class);
+        return $stmt->fetch();
+    }
 }

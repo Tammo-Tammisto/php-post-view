@@ -13,6 +13,12 @@ class Model
         return $db->all(static::$table, static::class);
     }
 
+    public static function find($id)
+    {
+        $db = new DB();
+        return $db->findById(static::$table, $id, static::class);
+    }
+
     public function save(){
         $db = new DB();
         $fields = get_object_vars($this);
