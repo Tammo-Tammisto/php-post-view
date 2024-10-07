@@ -16,20 +16,12 @@ class Router {
 
     public function match(){
         foreach(self::$routes as $route){
-            // Use regex to match the path, allowing for dynamic segments
-            $pattern = preg_replace('/\{(\w+)\}/', '([^/]+)', $route->path);
-            if (preg_match("#^$pattern$#", $this->path, $matches)) {
-                array_shift($matches); // Remove the full match
-                return (object) [
-                    'action' => $route->action,
-                    'params' => $matches // Pass the parameters
-                ];
+            if($route->path === $this->path && $route->method === $this->method){
+                return $route;
             }
         }
         return false;
     }
-    
-    
 
     public static function addRoute($method, $path, $action){
         self::$routes[] = new Route($method, $path, $action);

@@ -7,22 +7,31 @@ use App\DB;
 class Model
 {
     public static $table;
-    public static function all()
-    {
+    public $id;
+
+    public static function all() {
         $db = new DB();
         return $db->all(static::$table, static::class);
     }
 
-    public static function find($id)
-    {
+    public static function find($id) {
         $db = new DB();
-        return $db->findById(static::$table, $id, static::class);
+        return $db->find(static::$table, static::class, $id);
     }
 
     public function save(){
         $db = new DB();
         $fields = get_object_vars($this);
         unset($fields['id']);
-        $db->insert(static::$table, $fields);
+        if($this->id){
+            $db->update(static::$table, $fields, $this->id);
+        } else {
+            $db->insert(static::$table, $fields);
+        }
+    }
+    
+    public function delete(){
+        $db = new DB();
+        $db->delete(static::$table, $this->id);
     }
 }
